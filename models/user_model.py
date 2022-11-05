@@ -3,6 +3,3 @@ class User:
         self.name: str = ""
         self.email: str = ""
         self.password: str = ""
-
-
-
