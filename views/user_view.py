@@ -15,7 +15,7 @@ user = Blueprint("user", __name__)  # for backwards compatibility, the framework
 @user.route("/v0/users/signup", methods=["POST"])
 def create():
     try:
-        data = json.loads(request.data)
+        data = json.loads(request.data)  # the data will be sent from the mobile application -> the (object) will be created and pushed to the DB. the request can be accessed as a dict.
 
         if 'email' not in data:
             return jsonify({'error': 'Email is needed in the request.'}), 400
