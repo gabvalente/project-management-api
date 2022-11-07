@@ -10,13 +10,13 @@ from controllers.user_controller import createUser, loginUser, fetchUsers
 from bson.objectid import ObjectId
 
 
-def getUserNameByUId(Uid): 
+def getUserNameByUId(Uid):
     collection = database.dataBase[config.CONST_USER_COLLECTION]
     userInfo = collection.find_one({"_id": ObjectId(Uid)})
     return userInfo['name']
-    
+
+
 def createTask(userInformation, taskInformation):
-    
     newTask = None
     try:
         newTask = Task()
@@ -25,10 +25,9 @@ def createTask(userInformation, taskInformation):
         newTask.createdByName: str = getUserNameByUId(userInformation['id'])
         newTask.assignedToUid: str = taskInformation['assignedToUid']
         newTask.assignedToName: str = getUserNameByUId(taskInformation['assignedToUid'])
-                
+
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         createdTask = collection.insert_one(newTask.__dict__)
         return createdTask
     except Exception as err:
         raise ValueError('Error on creating task: ', err)
-    
