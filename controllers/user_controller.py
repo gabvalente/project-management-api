@@ -6,10 +6,12 @@ import app_config as config
 from datetime import datetime, timedelta
 import jwt
 
+
 def generateHashPassword(password):
     salt = bcrypt.gensalt()
     hashedPassword = bcrypt.hashpw(password.encode("utf-8"), salt)
     return hashedPassword
+
 
 def createUser(userInformation):
     newUser = None
@@ -30,6 +32,7 @@ def createUser(userInformation):
     except Exception as err:
         raise ValueError('Error on creating user: ', err)
 
+
 def loginUser(userInformation):
     try:
         email = userInformation['email'].lower()
@@ -41,10 +44,10 @@ def loginUser(userInformation):
 
         if not currentUser:
             return "Invalid email"
-        
+
         if not bcrypt.checkpw(password, currentUser["password"]):
             return "Invalid password"
-        
+
         loggedUsed = {}
         loggedUsed.update({'uid': str(currentUser['_id'])})
         loggedUsed.update({'email': currentUser['email']})
@@ -56,10 +59,11 @@ def loginUser(userInformation):
 
         jwtToReturn = jwt.encode(payload=jwtData, key=config.TOKEN_SECRET)
 
-        return jsonify({'token': jwtToReturn, 'expiration': config.JWT_EXPIRATION, 'loggedUser':loggedUsed})
+        return jsonify({'token': jwtToReturn, 'expiration': config.JWT_EXPIRATION, 'loggedUser': loggedUsed})
 
     except Exception as err:
         raise ValueError("Error on trying to login the user: ", err)
+
 
 def fetchUsers():
     try:
@@ -72,7 +76,7 @@ def fetchUsers():
             currentUser.update({'email': user['email']})
             currentUser.update({'name': user['name']})
             users.append(currentUser)
-        
+
         return users
 
     except Exception as err:

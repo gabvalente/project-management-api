@@ -8,9 +8,11 @@ app.register_blueprint(user)
 
 print(database)
 
+
 @app.route("/")
 def index():
     return "HOME"
+
 
 if __name__ == "__main__":
     app.run()

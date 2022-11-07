@@ -12,10 +12,12 @@ from helpers.token_validation import validateJWT
 
 user = Blueprint("user", __name__)  # for backwards compatibility, the framework requires a name + the file name.
 
+
 @user.route("/v0/users/signup", methods=["POST"])
 def create():
     try:
-        data = json.loads(request.data)  # the data will be sent from the mobile application -> the (object) will be created and pushed to the DB. the request can be accessed as a dict.
+        data = json.loads(
+            request.data)  # the data will be sent from the mobile application -> the (object) will be created and pushed to the DB. the request can be accessed as a dict.
 
         if 'email' not in data:
             return jsonify({'error': 'Email is needed in the request.'}), 400
@@ -28,7 +30,7 @@ def create():
 
         if createdUser == "Duplicated User":
             return jsonify({'error': 'There is already an user with this email.'}), 400
-        
+
         if not createdUser.inserted_id:
             return jsonify({'error': 'Something wrong happened when creating user.'}), 500
 
@@ -36,6 +38,7 @@ def create():
 
     except ValueError:
         return jsonify({'error': 'Error creating user.'}), 400
+
 
 @user.route("/v0/users/login", methods=["POST"])
 def login():
@@ -55,11 +58,12 @@ def login():
         if loginAttempt == "Invalid password":
             return jsonify({'error': 'Invalid Credentials'}), 401
 
-        return jsonify({'token': loginAttempt.json['token'], 'expiration': loginAttempt.json['expiration'], 'loggedUser': loginAttempt.json['loggedUser']})
-
+        return jsonify({'token': loginAttempt.json['token'], 'expiration': loginAttempt.json['expiration'],
+                        'loggedUser': loginAttempt.json['loggedUser']})
 
     except ValueError:
         return jsonify({'error': 'Error login user.'})
+
 
 @user.route("/v0/users/all", methods=["GET"])
 def fetch():
