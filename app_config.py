@@ -2,5 +2,7 @@ CONST_MONGO_URL = "mongodb+srv://pythonls3:vMdBTmZFeylsNJKX@cluster0.7s4my0s.mon
 CONST_DATABASE = "LS3"
 CONST_USER_COLLECTION = "users"
 
+CONST_TASK_COLLECTION = "tasks"
+
 TOKEN_SECRET = "iosandpython"
 JWT_EXPIRATION = 86400*30
