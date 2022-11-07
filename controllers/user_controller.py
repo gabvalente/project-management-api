@@ -12,7 +12,7 @@ def generateHashPassword(password):
     return hashedPassword
 
 def createUser(userInformation):
-    newTask = None
+    newUser = None
     try:
         newUser = User()
         newUser.name = userInformation['name'].lower()

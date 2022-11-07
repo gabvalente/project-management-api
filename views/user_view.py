@@ -18,6 +18,7 @@ def create():
             return jsonify({'error': 'Password is needed in the request.'}), 400
         if 'name' not in data:
             return jsonify({'error': 'Name is needed in the request.'}), 400
+        
 
         createdUser = createUser(data)
 
