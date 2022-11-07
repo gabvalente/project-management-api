@@ -1,4 +1,4 @@
-#   a class to send the information needed by the database. used inside __init__ instead of simply using the mongoClient() method.
+#  a class to send the information needed by the database. used inside __init__ instead of simply using the mongoClient() method.
 
 from pymongo import MongoClient
 

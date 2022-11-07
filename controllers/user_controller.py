@@ -1,3 +1,6 @@
+# methods to be called inside  user_view.
+# the controller is the "brain" of the view.
+
 from flask import jsonify
 from models.user_model import User
 import bcrypt
@@ -10,12 +13,12 @@ import jwt
 def generateHashPassword(password):
     salt = bcrypt.gensalt()
     hashedPassword = bcrypt.hashpw(password.encode("utf-8"), salt)
-    return hashedPassword
+    return hashedPassword  # encrypting the password sent as a parameter by the user.
 
 
 def createUser(userInformation):
     newUser = None
-    try:
+    try:  # use try-catch when dealing with servers (pop errors).
         newUser = User()
         newUser.name = userInformation['name'].lower()
         newUser.email = userInformation['email'].lower()
@@ -26,7 +29,7 @@ def createUser(userInformation):
         if collection.find_one({'email': newUser.email}):
             return "Duplicated User"
 
-        createdUsed = collection.insert_one(newUser.__dict__)
+        createdUsed = collection.insert_one(newUser.__dict__)  # pushing new user inside the collection.
 
         return createdUsed
     except Exception as err:
@@ -40,7 +43,7 @@ def loginUser(userInformation):
 
         collection = database.dataBase[config.CONST_USER_COLLECTION]
 
-        currentUser = collection.find_one({'email': email})
+        currentUser = collection.find_one({'email': email})  # checking for duplicated email addresses inside the user collection.
 
         if not currentUser:
             return "Invalid email"
@@ -53,9 +56,9 @@ def loginUser(userInformation):
         loggedUsed.update({'email': currentUser['email']})
         loggedUsed.update({'name': currentUser['name']})
 
-        expiration = datetime.utcnow() + timedelta(seconds=config.JWT_EXPIRATION)
+        expiration = datetime.utcnow() + timedelta(seconds=config.JWT_EXPIRATION)  # setting the token expiration time.
 
-        jwtData = {'email': currentUser['email'], 'id': str(currentUser['_id']), 'exp': expiration}
+        jwtData = {'email': currentUser['email'], 'id': str(currentUser['_id']), 'exp': expiration}  # defining the data to be hidden in the token.
 
         jwtToReturn = jwt.encode(payload=jwtData, key=config.TOKEN_SECRET)
 

@@ -10,7 +10,7 @@ print(database)
 
 
 @app.route("/")
-def index():
+def index():  # the entry point of the application!
     return "HOME"
 
 
