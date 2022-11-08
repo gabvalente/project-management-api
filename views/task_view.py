@@ -24,8 +24,8 @@ def create():
             return jsonify({'error': 'Description is needed in the request.'}), 400
         if 'assignedToUid' not in data:
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
-        # if not getUserNameByUId(data['assignedToUid']):
-        #     return jsonify({'error': 'Assigned Uid is not valid.'}), 400
+        if not getUserNameByUId(data['assignedToUid']):
+            return jsonify({'error': 'Assigned Uid is not valid.'}), 400
 
         createdTask = createTask(token, data)
         return jsonify({'uid': str(createdTask.inserted_id)})

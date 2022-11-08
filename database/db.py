@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 
-class Database():
+class Database:
     def __init__(self, dataBaseName=None, connectionString=None):
         if (dataBaseName is None) or (connectionString is None):
             raise Exception("Mongo DB requires database Name and string connection!")
