@@ -39,16 +39,15 @@ def fetchCreatedTask(Uid):
         createdTasks = []
 
         for task in collection.find():
-            # if getUserNameByUId(Uid) == task['name']:
-            # if str(task['createdByUid']) == str(Uid):
-            currentTask = {}
-            currentTask.update({'uid': str(task['_id'])})
-            currentTask.update({'description': task['description']})
-            currentTask.update({'createdByUid': str(task['createdByUid'])})
-            currentTask.update({'createdByName': task['createdByName']})
-            currentTask.update({'assignedToUid': str(task['assignedToUid'])})
-            currentTask.update({'assignedToName': task['assignedToName']})
-            createdTasks.append(currentTask)
+            if str(task['createdByUid']) == str(Uid):
+                currentTask = {}
+                currentTask.update({'uid': str(task['_id'])})
+                currentTask.update({'description': task['description']})
+                currentTask.update({'createdByUid': str(task['createdByUid'])})
+                currentTask.update({'createdByName': task['createdByName']})
+                currentTask.update({'assignedToUid': str(task['assignedToUid'])})
+                currentTask.update({'assignedToName': task['assignedToName']})
+                createdTasks.append(currentTask)
 
         return createdTasks
 

@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 
+
 class Database():
-    def __init__(self, dataBaseName = None, connectionString = None):
-        if((dataBaseName == None) or (connectionString==None)):
+    def __init__(self, dataBaseName=None, connectionString=None):
+        if (dataBaseName is None) or (connectionString is None):
             raise Exception("Mongo DB requires database Name and string connection!")
 
         self.__dataBaseName = dataBaseName
@@ -13,11 +14,10 @@ class Database():
     @property
     def dataBase(self):
         return self.__dataBase
-    
+
     @property
     def dbConnection(self):
         return self.__dbConnection
-
 
     def connect(self) -> bool:
         try:

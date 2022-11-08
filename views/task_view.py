@@ -60,7 +60,7 @@ def assignedTo():
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
 def updatetask(taskUid):
-    return "fetch task linnk"
+    return "fetch task link"
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["DELETE"])
