@@ -31,3 +31,45 @@ def createTask(userInformation, taskInformation):
         return createdTask
     except Exception as err:
         raise ValueError('Error on creating task: ', err)
+    
+def fetchCreatedTask(Uid):
+    try:
+        collection = database.dataBase[config.CONST_TASK_COLLECTION]
+        createdTasks = []
+
+        for task in collection.find():
+            if task['createdByUid']==Uid: 
+                currentTask = {}
+                currentTask.update({'uid': task['_id']})
+                currentTask.update({'description': task['description']})
+                currentTask.update({'createdByUid': task['createdByUid']})
+                currentTask.update({'createdByName': task['createdByName']})
+                currentTask.update({'assignedToUid': task['assignedToUid']})
+                currentTask.update({'assignedToName': task['assignedToName']})
+                createdTasks.append(currentTask)
+        
+        return createdTasks
+
+    except Exception as err:
+        raise ValueError("Error when trying to fetch users: ", err)
+    
+def fetchAssignedToTask(Uid):
+    try:
+        collection = database.dataBase[config.CONST_TASK_COLLECTION]
+        createdTasks = []
+
+        for task in collection.find():
+            if task['assignedToUid']==Uid: 
+                currentTask = {}
+                currentTask.update({'uid': task['_id']})
+                currentTask.update({'description': task['description']})
+                currentTask.update({'createdByUid': task['createdByUid']})
+                currentTask.update({'createdByName': task['createdByName']})
+                currentTask.update({'assignedToUid': task['assignedToUid']})
+                currentTask.update({'assignedToName': task['assignedToName']})
+                createdTasks.append(currentTask)
+        
+        return createdTasks
+
+    except Exception as err:
+        raise ValueError("Error when trying to fetch users: ", err)

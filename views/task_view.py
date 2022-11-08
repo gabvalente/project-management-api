@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from controllers.task_controller import createTask
+from controllers.task_controller import createTask, getUserNameByUId, fetchCreatedTask, fetchAssignedToTask
 from database.__init__ import database
 from models.user_model import User
 import json
@@ -24,22 +24,36 @@ def create():
             return jsonify({'error': 'Description is needed in the request.'}), 400
         if 'assignedToUid' not in data:
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
+        if (getUserNameByUId(data['assignedToUid'])==False):
+            return jsonify({'error': 'Assigned Uid is not valid.'}), 400
 
         createdTask = createTask(token, data)
         return jsonify({'uid': str(createdTask.inserted_id)})
-
+    
     except ValueError:
         return jsonify({'error': 'Error creating task.'})
 
 
 @task.route("/v0/tasks/createdby/", methods=["GET"])
 def createdBy():
-    return
+    token = validateJWT()
+    if token == 400:
+        return jsonify({'error': 'Token is missing in the request.'}), 400
+    if token == 401:
+        return jsonify({'error': 'Invalid authentication token.'}), 401
+
+    return fetchCreatedTask(token['id'])
 
 
 @task.route("/v0/tasks/assignedto/", methods=["GET"])
 def assignedTo():
-    return "assigned to link"
+    token = validateJWT()
+    if token == 400:
+        return jsonify({'error': 'Token is missing in the request.'}), 400
+    if token == 401:
+        return jsonify({'error': 'Invalid authentication token.'}), 401
+
+    return fetchAssignedToTask(token['id'])
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
