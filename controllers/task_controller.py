@@ -21,54 +21,57 @@ def createTask(userInformation, taskInformation):
     try:
         newTask = Task()
         newTask.description = taskInformation['description']
-        newTask.createdByUid: str = userInformation['id']
-        newTask.createdByName: str = getUserNameByUId(userInformation['id'])
-        newTask.assignedToUid: str = taskInformation['assignedToUid']
-        newTask.assignedToName: str = getUserNameByUId(taskInformation['assignedToUid'])
+        newTask.createdByUid = userInformation['id']
+        newTask.createdByName = getUserNameByUId(userInformation['id'])
+        newTask.assignedToUid = taskInformation['assignedToUid']
+        newTask.assignedToName = getUserNameByUId(taskInformation['assignedToUid'])
 
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         createdTask = collection.insert_one(newTask.__dict__)
         return createdTask
     except Exception as err:
         raise ValueError('Error on creating task: ', err)
-    
+
+
 def fetchCreatedTask(Uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         createdTasks = []
 
         for task in collection.find():
-            if task['createdByUid']==Uid: 
-                currentTask = {}
-                currentTask.update({'uid': task['_id']})
-                currentTask.update({'description': task['description']})
-                currentTask.update({'createdByUid': task['createdByUid']})
-                currentTask.update({'createdByName': task['createdByName']})
-                currentTask.update({'assignedToUid': task['assignedToUid']})
-                currentTask.update({'assignedToName': task['assignedToName']})
-                createdTasks.append(currentTask)
-        
+            # if getUserNameByUId(Uid) == task['name']:
+            # if str(task['createdByUid']) == str(Uid):
+            currentTask = {}
+            currentTask.update({'uid': str(task['_id'])})
+            currentTask.update({'description': task['description']})
+            currentTask.update({'createdByUid': str(task['createdByUid'])})
+            currentTask.update({'createdByName': task['createdByName']})
+            currentTask.update({'assignedToUid': str(task['assignedToUid'])})
+            currentTask.update({'assignedToName': task['assignedToName']})
+            createdTasks.append(currentTask)
+
         return createdTasks
 
     except Exception as err:
         raise ValueError("Error when trying to fetch users: ", err)
-    
+
+
 def fetchAssignedToTask(Uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         createdTasks = []
 
         for task in collection.find():
-            if task['assignedToUid']==Uid: 
+            if str(task['assignedToUid']) == str(Uid):
                 currentTask = {}
-                currentTask.update({'uid': task['_id']})
+                currentTask.update({'uid': str(task['_id'])})
                 currentTask.update({'description': task['description']})
                 currentTask.update({'createdByUid': task['createdByUid']})
                 currentTask.update({'createdByName': task['createdByName']})
                 currentTask.update({'assignedToUid': task['assignedToUid']})
                 currentTask.update({'assignedToName': task['assignedToName']})
                 createdTasks.append(currentTask)
-        
+
         return createdTasks
 
     except Exception as err:
