@@ -79,7 +79,7 @@ def updateTask(token, Uid):
     collection = database.dataBase[config.CONST_TASK_COLLECTION]
     taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
     if taskToUpdate['assignedToUid']!=token['id']: 
-        return jsonify({'error': "Only assigned user can update this task"})
+        return jsonify({'error': "User can only change status when task is assigned to them."})
     collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
     return jsonify({'taskUid': Uid})
 
