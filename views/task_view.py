@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from controllers.task_controller import createTask, getUserNameByUId, fetchCreatedTask, fetchAssignedToTask
-from database.__init__ import database
+from controllers.task_controller import createTask, getUserNameByUId, fetchCreatedTask, fetchAssignedToTask, updateTask, delete
 from models.user_model import User
 import json
 from controllers.user_controller import createUser, loginUser, fetchUsers
@@ -58,9 +57,24 @@ def assignedTo():
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
 def updatetask(taskUid):
-    return "fetch task link"
+    token = validateJWT()
+    if token == 400:
+        return jsonify({'error': 'Token is missing in the request.'}), 400
+    if token == 401:
+        return jsonify({'error': 'Invalid authentication token.'}), 401
+    data = json.loads(request.data)
+    if 'done' not in data:
+        return jsonify({'error': 'Done is needed in the request.'}), 400
+    
+    return updateTask(token, taskUid)
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["DELETE"])
 def deleteTask(taskUid):
-    return "delete link"
+    token = validateJWT()
+    if token == 400:
+        return jsonify({'error': 'Token is missing in the request.'}), 400
+    if token == 401:
+        return jsonify({'error': 'Invalid authentication token.'}), 401
+    
+    return delete(token, taskUid)

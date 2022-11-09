@@ -70,8 +70,27 @@ def fetchAssignedToTask(Uid):
                 currentTask.update({'assignedToUid': task['assignedToUid']})
                 currentTask.update({'assignedToName': task['assignedToName']})
                 createdTasks.append(currentTask)
-
         return createdTasks
-
     except Exception as err:
         raise ValueError("Error when trying to fetch users: ", err)
+
+
+def updateTask(token, Uid):
+    collection = database.dataBase[config.CONST_TASK_COLLECTION]
+    taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
+    if taskToUpdate['assignedToUid']!=token['id']: 
+        return jsonify({'error': "Only assigned user can update this task"})
+    collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
+    return jsonify({'taskUid': Uid})
+
+
+
+def delete(token, Uid):
+
+    collection = database.dataBase[config.CONST_TASK_COLLECTION]
+    
+    taskToDelete = collection.find_one({"_id": ObjectId(Uid)})
+    if taskToDelete['createdByUid']!=token['id']: 
+        return jsonify({'error': "Users can only delete when task is created by them."})
+    collection.delete_one({"_id":taskToDelete["_id"]})
+    return jsonify({'tasksAffected': 1}),200
