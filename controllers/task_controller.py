@@ -15,6 +15,16 @@ def getUserNameByUId(Uid):
     userInfo = collection.find_one({"_id": ObjectId(Uid)})
     return userInfo['name']
 
+# def checkingUserUid(Uid):
+#     try: 
+#         collection = database.dataBase[config.CONST_USER_COLLECTION]
+#         if not collection.find_one({"_id": ObjectId(Uid)}): 
+#             return jsonify({'error': 'User does not exist'})
+#         else: 
+#             return True
+#     except Exception as err:
+#         raise ValueError('Error on user Uid: ', err)
+
 
 def createTask(userInformation, taskInformation):
     newTask = None
@@ -84,11 +94,9 @@ def updateTask(token, Uid):
     return jsonify({'taskUid': Uid})
 
 
-
 def delete(token, Uid):
 
     collection = database.dataBase[config.CONST_TASK_COLLECTION]
-    
     taskToDelete = collection.find_one({"_id": ObjectId(Uid)})
     if taskToDelete['createdByUid']!=token['id']: 
         return jsonify({'error': "Users can only delete when task is created by them."})

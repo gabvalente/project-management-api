@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from controllers.task_controller import createTask, getUserNameByUId, fetchCreatedTask, fetchAssignedToTask, updateTask, delete
+from controllers.task_controller import createTask, checkingUserUid, fetchCreatedTask, fetchAssignedToTask, updateTask, delete
 from models.user_model import User
 import json
 from controllers.user_controller import createUser, loginUser, fetchUsers
@@ -23,13 +23,12 @@ def create():
             return jsonify({'error': 'Description is needed in the request.'}), 400
         if 'assignedToUid' not in data:
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
-        if not getUserNameByUId(data['assignedToUid']):
-            return jsonify({'error': 'Assigned Uid is not valid.'}), 400
+       # checkingUserUid(data['assignedToUid'])
 
         createdTask = createTask(token, data)
         return jsonify({'uid': str(createdTask.inserted_id)})
     
-    except ValueError:
+    except ValueError as err:
         return jsonify({'error': 'Error creating task.'})
 
 
