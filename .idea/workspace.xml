@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="edit check_task_list function">
+      <change beforePath="$PROJECT_DIR$/.idea/MyApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MyApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/task_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/task_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/task_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/task_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +36,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/hauka/Desktop/lasalle college/3rd semester/python/API_task/MyApp",
+    "last_opened_file_path": "C:/Users/Maria Adelaida/OneDrive/Documents/GitHub/MyApp",
     "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
 }]]></component>
@@ -82,6 +83,7 @@
       <workItem from="1668246539779" duration="1133000" />
       <workItem from="1668247764876" duration="119000" />
       <workItem from="1668254038879" duration="1507000" />
+      <workItem from="1668265506169" duration="820000" />
     </task>
     <task id="LOCAL-00001" summary="edit check_task_list function">
       <created>1668254635756</created>
