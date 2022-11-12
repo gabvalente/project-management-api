@@ -35,7 +35,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/hauka/Downloads/MyApp-main_testing (2)/MyApp-main_testing",
+    "last_opened_file_path": "C:/Users/hauka/Desktop/lasalle college/3rd semester/python/API_task/MyApp",
     "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
 }]]></component>
@@ -81,6 +81,7 @@
       <workItem from="1668245132297" duration="271000" />
       <workItem from="1668246539779" duration="1133000" />
       <workItem from="1668247764876" duration="119000" />
+      <workItem from="1668254038879" duration="470000" />
     </task>
     <servers />
   </component>
@@ -99,6 +100,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MyApp$MyApp.coverage" NAME="MyApp Coverage Results" MODIFIED="1668247773810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/MyApp$MyApp.coverage" NAME="MyApp Coverage Results" MODIFIED="1668254483804" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

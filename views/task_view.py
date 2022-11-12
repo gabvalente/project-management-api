@@ -23,7 +23,6 @@ def create():
             return jsonify({'error': 'Description is needed in the request.'}), 400
         if 'assignedToUid' not in data:
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
-       # checkingUserUid(data['assignedToUid'])
 
         createdTask = createTask(token, data)
         return jsonify({'uid': str(createdTask.inserted_id)})
@@ -74,10 +73,10 @@ def updatetask(taskUid):
             return jsonify({'error': 'Done is needed in the request.'}), 400
         
         list_task = fetchAssignedToTask(token['id'])
-        task_check=checking_task_in_list(list_task, taskUid)
+        task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0: 
             return jsonify({'error': 'Task does not exist'}), 401
-        
+
         return updateTask(token, taskUid)
     except ValueError as err:
         return jsonify({'error': 'Error updating task.'})
@@ -92,7 +91,7 @@ def deleteTask(taskUid):
             return jsonify({'error': 'Invalid authentication token.'}), 401
         
         list_task = fetchCreatedTask(token['id'])
-        task_check=checking_task_in_list(list_task, taskUid)
+        task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0: 
             return jsonify({'error': 'Task does not exist'}), 401
         

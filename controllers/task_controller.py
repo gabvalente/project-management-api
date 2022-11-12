@@ -72,15 +72,15 @@ def checking_task_in_list(task_list, task_uid):
     count=0;
     for task in task_list: 
         if str(task['uid']) == str(task_uid):
-            count=count+1
-        if count==0:
-            return 0
+            count =count+1
+    if count==0:
+        return 0
 
 def updateTask(token, Uid):
     try: 
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
-        if taskToUpdate['assignedToUid']!=token['id']: 
+        if str(taskToUpdate['assignedToUid'])!=str(token['id']):
             return jsonify({'error': "User can only change status when task is assigned to them."})
         collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
         return jsonify({'taskUid': Uid})
