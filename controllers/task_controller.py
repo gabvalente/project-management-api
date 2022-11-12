@@ -1,12 +1,7 @@
 from flask import jsonify
-from models.user_model import User
 from models.task_model import Task
-import bcrypt
 from database.__init__ import database
 import app_config as config
-from datetime import datetime, timedelta
-import jwt
-from controllers.user_controller import createUser, loginUser, fetchUsers
 from bson.objectid import ObjectId
 
 
@@ -14,17 +9,6 @@ def getUserNameByUId(Uid):
     collection = database.dataBase[config.CONST_USER_COLLECTION]
     userInfo = collection.find_one({"_id": ObjectId(Uid)})
     return userInfo['name']
-
-# def checkingUserUid(Uid):
-#     try: 
-#         collection = database.dataBase[config.CONST_USER_COLLECTION]
-#         if not collection.find_one({"_id": ObjectId(Uid)}): 
-#             return jsonify({'error': 'User does not exist'})
-#         else: 
-#             return True
-#     except Exception as err:
-#         raise ValueError('Error on user Uid: ', err)
-
 
 def createTask(userInformation, taskInformation):
     newTask = None
@@ -62,7 +46,7 @@ def fetchCreatedTask(Uid):
         return createdTasks
 
     except Exception as err:
-        raise ValueError("Error when trying to fetch users: ", err)
+        raise ValueError("Error when trying to fetch tasks: ", err)
 
 
 def fetchAssignedToTask(Uid):
@@ -82,23 +66,35 @@ def fetchAssignedToTask(Uid):
                 createdTasks.append(currentTask)
         return createdTasks
     except Exception as err:
-        raise ValueError("Error when trying to fetch users: ", err)
+        raise ValueError("Error when trying to fetch tasks: ", err)
 
+def checking_task_in_list(task_list, task_uid):
+    count=0;
+    for task in task_list: 
+        if str(task['uid']) == str(task_uid):
+            count=count+1
+        if count==0:
+            return 0
 
 def updateTask(token, Uid):
-    collection = database.dataBase[config.CONST_TASK_COLLECTION]
-    taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
-    if taskToUpdate['assignedToUid']!=token['id']: 
-        return jsonify({'error': "User can only change status when task is assigned to them."})
-    collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
-    return jsonify({'taskUid': Uid})
+    try: 
+        collection = database.dataBase[config.CONST_TASK_COLLECTION]
+        taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
+        if taskToUpdate['assignedToUid']!=token['id']: 
+            return jsonify({'error': "User can only change status when task is assigned to them."})
+        collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
+        return jsonify({'taskUid': Uid})
+    except Exception as err:
+        raise ValueError("Error when updating task: ", err)
 
 
 def delete(token, Uid):
-
-    collection = database.dataBase[config.CONST_TASK_COLLECTION]
-    taskToDelete = collection.find_one({"_id": ObjectId(Uid)})
-    if taskToDelete['createdByUid']!=token['id']: 
-        return jsonify({'error': "Users can only delete when task is created by them."})
-    collection.delete_one({"_id":taskToDelete["_id"]})
-    return jsonify({'tasksAffected': 1}),200
+    try: 
+        collection = database.dataBase[config.CONST_TASK_COLLECTION]
+        taskToDelete = collection.find_one({"_id": ObjectId(Uid)})
+        if taskToDelete['createdByUid']!=token['id']: 
+            return jsonify({'error': "Users can only delete when task is created by them."})
+        collection.delete_one({"_id":taskToDelete["_id"]})
+        return jsonify({'tasksAffected': 1}),200
+    except Exception as err:
+        raise ValueError("Error when deleting task: ", err)

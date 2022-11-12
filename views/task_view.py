@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from controllers.task_controller import createTask, checkingUserUid, fetchCreatedTask, fetchAssignedToTask, updateTask, delete
+from controllers.task_controller import createTask, fetchCreatedTask, fetchAssignedToTask, updateTask, delete, checking_task_in_list
 from models.user_model import User
 import json
 from controllers.user_controller import createUser, loginUser, fetchUsers
@@ -34,46 +34,68 @@ def create():
 
 @task.route("/v0/tasks/createdby/", methods=["GET"])
 def createdBy():
-    token = validateJWT()
-    if token == 400:
-        return jsonify({'error': 'Token is missing in the request.'}), 400
-    if token == 401:
-        return jsonify({'error': 'Invalid authentication token.'}), 401
+    try: 
+        token = validateJWT()
+        if token == 400:
+            return jsonify({'error': 'Token is missing in the request.'}), 400
+        if token == 401:
+            return jsonify({'error': 'Invalid authentication token.'}), 401
 
-    return fetchCreatedTask(token['id'])
+        return fetchCreatedTask(token['id'])
+    
+    except ValueError as err:
+        return jsonify({'error': 'Error fetching task.'})
 
 
 @task.route("/v0/tasks/assignedto/", methods=["GET"])
 def assignedTo():
-    token = validateJWT()
-    if token == 400:
-        return jsonify({'error': 'Token is missing in the request.'}), 400
-    if token == 401:
-        return jsonify({'error': 'Invalid authentication token.'}), 401
+    try: 
+        token = validateJWT()
+        if token == 400:
+            return jsonify({'error': 'Token is missing in the request.'}), 400
+        if token == 401:
+            return jsonify({'error': 'Invalid authentication token.'}), 401
 
-    return fetchAssignedToTask(token['id'])
+        return fetchAssignedToTask(token['id'])
+    except ValueError as err:
+        return jsonify({'error': 'Error fetching task.'})
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
 def updatetask(taskUid):
-    token = validateJWT()
-    if token == 400:
-        return jsonify({'error': 'Token is missing in the request.'}), 400
-    if token == 401:
-        return jsonify({'error': 'Invalid authentication token.'}), 401
-    data = json.loads(request.data)
-    if 'done' not in data:
-        return jsonify({'error': 'Done is needed in the request.'}), 400
-    
-    return updateTask(token, taskUid)
-
+    try: 
+        token = validateJWT()
+        if token == 400:
+            return jsonify({'error': 'Token is missing in the request.'}), 400
+        if token == 401:
+            return jsonify({'error': 'Invalid authentication token.'}), 401
+        data = json.loads(request.data)
+        if 'done' not in data:
+            return jsonify({'error': 'Done is needed in the request.'}), 400
+        
+        list_task = fetchAssignedToTask(token['id'])
+        task_check=checking_task_in_list(list_task, taskUid)
+        if task_check == 0: 
+            return jsonify({'error': 'Task does not exist'}), 401
+        
+        return updateTask(token, taskUid)
+    except ValueError as err:
+        return jsonify({'error': 'Error updating task.'})
 
 @task.route("/v0/tasks/<taskUid>", methods=["DELETE"])
 def deleteTask(taskUid):
-    token = validateJWT()
-    if token == 400:
-        return jsonify({'error': 'Token is missing in the request.'}), 400
-    if token == 401:
-        return jsonify({'error': 'Invalid authentication token.'}), 401
-    
-    return delete(token, taskUid)
+    try: 
+        token = validateJWT()
+        if token == 400:
+            return jsonify({'error': 'Token is missing in the request.'}), 400
+        if token == 401:
+            return jsonify({'error': 'Invalid authentication token.'}), 401
+        
+        list_task = fetchCreatedTask(token['id'])
+        task_check=checking_task_in_list(list_task, taskUid)
+        if task_check == 0: 
+            return jsonify({'error': 'Task does not exist'}), 401
+        
+        return delete(token, taskUid)
+    except ValueError as err:
+        return jsonify({'error': 'Error deleting task.'})
