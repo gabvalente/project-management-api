@@ -5,96 +5,99 @@ import app_config as config
 from bson.objectid import ObjectId
 
 
-def getUserNameByUId(Uid):
+def get_username_by_uid(uid):
     collection = database.dataBase[config.CONST_USER_COLLECTION]
-    userInfo = collection.find_one({"_id": ObjectId(Uid)})
-    return userInfo['name']
+    user_info = collection.find_one({"_id": ObjectId(uid)})
+    return user_info['name']
 
-def createTask(userInformation, taskInformation):
-    newTask = None
+
+def create_task(user_information, task_information):
+    new_task = None
     try:
-        newTask = Task()
-        newTask.description = taskInformation['description']
-        newTask.createdByUid = userInformation['id']
-        newTask.createdByName = getUserNameByUId(userInformation['id'])
-        newTask.assignedToUid = taskInformation['assignedToUid']
-        newTask.assignedToName = getUserNameByUId(taskInformation['assignedToUid'])
+        new_task = Task()
+        new_task.description = task_information['description']
+        new_task.createdByUid = user_information['id']
+        new_task.createdByName = get_username_by_uid(user_information['id'])
+        new_task.assignedToUid = task_information['assignedToUid']
+        new_task.assignedToName = get_username_by_uid(task_information['assignedToUid'])
 
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        createdTask = collection.insert_one(newTask.__dict__)
-        return createdTask
+        created_task = collection.insert_one(new_task.__dict__)
+        return created_task
     except Exception as err:
         raise ValueError('Error on creating task: ', err)
 
 
-def fetchCreatedTask(Uid):
+def fetch_created_task(uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        createdTasks = []
+        created_tasks = []
 
         for task in collection.find():
-            if str(task['createdByUid']) == str(Uid):
-                currentTask = {}
-                currentTask.update({'uid': str(task['_id'])})
-                currentTask.update({'description': task['description']})
-                currentTask.update({'createdByUid': str(task['createdByUid'])})
-                currentTask.update({'createdByName': task['createdByName']})
-                currentTask.update({'assignedToUid': str(task['assignedToUid'])})
-                currentTask.update({'assignedToName': task['assignedToName']})
-                createdTasks.append(currentTask)
+            if str(task['createdByUid']) == str(uid):
+                current_task = {}
+                current_task.update({'uid': str(task['_id'])})
+                current_task.update({'description': task['description']})
+                current_task.update({'createdByUid': str(task['createdByUid'])})
+                current_task.update({'createdByName': task['createdByName']})
+                current_task.update({'assignedToUid': str(task['assignedToUid'])})
+                current_task.update({'assignedToName': task['assignedToName']})
+                created_tasks.append(current_task)
 
-        return createdTasks
+        return created_tasks
 
     except Exception as err:
         raise ValueError("Error when trying to fetch tasks: ", err)
 
 
-def fetchAssignedToTask(Uid):
+def fetch_assigned_task(Uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        createdTasks = []
+        created_tasks = []
 
         for task in collection.find():
             if str(task['assignedToUid']) == str(Uid):
-                currentTask = {}
-                currentTask.update({'uid': str(task['_id'])})
-                currentTask.update({'description': task['description']})
-                currentTask.update({'createdByUid': task['createdByUid']})
-                currentTask.update({'createdByName': task['createdByName']})
-                currentTask.update({'assignedToUid': task['assignedToUid']})
-                currentTask.update({'assignedToName': task['assignedToName']})
-                createdTasks.append(currentTask)
-        return createdTasks
+                current_task = {}
+                current_task.update({'uid': str(task['_id'])})
+                current_task.update({'description': task['description']})
+                current_task.update({'createdByUid': task['createdByUid']})
+                current_task.update({'createdByName': task['createdByName']})
+                current_task.update({'assignedToUid': task['assignedToUid']})
+                current_task.update({'assignedToName': task['assignedToName']})
+                created_tasks.append(current_task)
+        return created_tasks
     except Exception as err:
         raise ValueError("Error when trying to fetch tasks: ", err)
 
+
 def checking_task_in_list(task_list, task_uid):
-    count=0;
-    for task in task_list: 
+    count = 0;
+    for task in task_list:
         if str(task['uid']) == str(task_uid):
-            count =count+1
-    if count==0:
+            count = count + 1
+    if count == 0:
         return 0
 
-def updateTask(token, Uid):
-    try: 
+
+def update_task(token, uid):
+    try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        taskToUpdate = collection.find_one({"_id": ObjectId(Uid)})
-        if str(taskToUpdate['assignedToUid'])!=str(token['id']):
+        task_to_update = collection.find_one({"_id": ObjectId(uid)})
+        if str(task_to_update['assignedToUid']) != str(token['id']):
             return jsonify({'error': "User can only change status when task is assigned to them."})
-        collection.update_one({"_id":taskToUpdate["_id"]}, {"$set":{"done":True}})
-        return jsonify({'taskUid': Uid})
+        collection.update_one({"_id": task_to_update["_id"]}, {"$set": {"done": True}})
+        return jsonify({'taskUid': uid})
     except Exception as err:
         raise ValueError("Error when updating task: ", err)
 
 
-def delete(token, Uid):
-    try: 
+def delete(token, uid):
+    try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        taskToDelete = collection.find_one({"_id": ObjectId(Uid)})
-        if taskToDelete['createdByUid']!=token['id']: 
+        task_to_delete = collection.find_one({"_id": ObjectId(uid)})
+        if task_to_delete['createdByUid'] != token['id']:
             return jsonify({'error': "Users can only delete when task is created by them."})
-        collection.delete_one({"_id":taskToDelete["_id"]})
-        return jsonify({'tasksAffected': 1}),200
+        collection.delete_one({"_id": task_to_delete["_id"]})
+        return jsonify({'tasksAffected': 1}), 200
     except Exception as err:
         raise ValueError("Error when deleting task: ", err)
