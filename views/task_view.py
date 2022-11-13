@@ -3,19 +3,10 @@ from controllers.task_controller import create_task, fetch_created_task, fetch_a
     checking_task_in_list
 import json
 from helpers.token_validation import validateJWT
-from bson.errors import InvalidId
-from bson.objectid import ObjectId
+from helpers.is_valid_oi import is_valid
 
 task = Blueprint("task", __name__)
 
-
-def is_valid(oid):
-
-    try:
-        ObjectId(oid)
-        return True
-    except (InvalidId, TypeError):
-        return False
 
 
 @task.route("/v0/tasks/createTask", methods=["POST"])
@@ -35,7 +26,7 @@ def create():
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
 
         if is_valid(data['assignedToUid']) is False:
-            return jsonify({'error': 'Uid is not valid.'}), 400
+            return jsonify({'error': 'The user who was assigned the task is invalid.'}), 400
 
         created_task = create_task(token, data)
         return jsonify({'uid': str(created_task.inserted_id)})
@@ -74,7 +65,7 @@ def assigned_to():
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
-def update_task(task_uid):
+def update(taskUid):
     try:
         token = validateJWT()
         if token == 400:
@@ -86,11 +77,11 @@ def update_task(task_uid):
             return jsonify({'error': 'Done is needed in the request.'}), 400
 
         list_task = fetch_assigned_task(token['id'])
-        task_check = checking_task_in_list(list_task, task_uid)
+        task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0:
             return jsonify({'error': 'Task does not exist'}), 401
 
-        return update_task(token, task_uid)
+        return update_task(token, taskUid)
     except ValueError:
         return jsonify({'error': 'Error updating task.'})
 

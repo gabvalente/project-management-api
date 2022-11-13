@@ -71,7 +71,7 @@ def fetch_assigned_task(Uid):
 
 
 def checking_task_in_list(task_list, task_uid):
-    count = 0;
+    count = 0
     for task in task_list:
         if str(task['uid']) == str(task_uid):
             count = count + 1
@@ -85,7 +85,7 @@ def update_task(token, uid):
         task_to_update = collection.find_one({"_id": ObjectId(uid)})
         if str(task_to_update['assignedToUid']) != str(token['id']):
             return jsonify({'error': "User can only change status when task is assigned to them."})
-        collection.update_one({"_id": task_to_update["_id"]}, {"$set": {"done": True}})
+        collection.update_one({"_id": task_to_update["_id"]}, {"$set": {"done": True}}) #setting the value directly . User can also change to false.Use body of function
         return jsonify({'taskUid': uid})
     except Exception as err:
         raise ValueError("Error when updating task: ", err)
