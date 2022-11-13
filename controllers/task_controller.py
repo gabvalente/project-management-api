@@ -42,6 +42,7 @@ def fetch_created_task(uid):
                 current_task.update({'createdByName': task['createdByName']})
                 current_task.update({'assignedToUid': str(task['assignedToUid'])})
                 current_task.update({'assignedToName': task['assignedToName']})
+                current_task.update({'done': task['done']})
                 created_tasks.append(current_task)
 
         return created_tasks
@@ -64,6 +65,7 @@ def fetch_assigned_task(Uid):
                 current_task.update({'createdByName': task['createdByName']})
                 current_task.update({'assignedToUid': task['assignedToUid']})
                 current_task.update({'assignedToName': task['assignedToName']})
+                current_task.update({'done': task['done']})
                 created_tasks.append(current_task)
         return created_tasks
     except Exception as err:
@@ -79,24 +81,21 @@ def checking_task_in_list(task_list, task_uid):
         return 0
 
 
-def update_task(token, uid):
+def update_task(user_information, uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         task_to_update = collection.find_one({"_id": ObjectId(uid)})
-        if str(task_to_update['assignedToUid']) != str(token['id']):
-            return jsonify({'error': "User can only change status when task is assigned to them."})
-        collection.update_one({"_id": task_to_update["_id"]}, {"$set": {"done": True}}) #setting the value directly . User can also change to false.Use body of function
+        collection.update_one({"_id": task_to_update["_id"]}, {
+            "$set": {"done": user_information["done"]}})
         return jsonify({'taskUid': uid})
     except Exception as err:
         raise ValueError("Error when updating task: ", err)
 
 
-def delete(token, uid):
+def delete(uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
         task_to_delete = collection.find_one({"_id": ObjectId(uid)})
-        if task_to_delete['createdByUid'] != token['id']:
-            return jsonify({'error': "Users can only delete when task is created by them."})
         collection.delete_one({"_id": task_to_delete["_id"]})
         return jsonify({'tasksAffected': 1}), 200
     except Exception as err:
