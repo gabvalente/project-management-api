@@ -13,9 +13,9 @@ def create():
     try:
         token = validateJWT()
         if token == 400:
-            return jsonify({'error': 'Token is missing in the request.'}), 401
+            return jsonify({'error': 'Token is missing in the request, please try again.'}), 401
         if token == 401:
-            return jsonify({'error': 'Invalid authentication token.'}), 403
+            return jsonify({'error': 'Invalid authentication token, please login again.'}), 403
 
         data = json.loads(request.data)
 
@@ -25,13 +25,13 @@ def create():
             return jsonify({'error': 'Assigned user is needed in the request.'}), 400
 
         if is_valid(data['assignedToUid']) is False:
-            return jsonify({'error': 'The user who was assigned the task is invalid.'}), 400
+            return jsonify({'error': 'Task assigned to an invalid user, please try again.'}), 400
 
         created_task = create_task(token, data)
         return jsonify({'uid': str(created_task.inserted_id)})
 
     except ValueError:
-        return jsonify({'error': 'Error creating task.'})
+        return jsonify({'error': 'Error upon creating the task!'})
 
 
 @task.route("/v0/tasks/createdby/", methods=["GET"])
@@ -39,14 +39,14 @@ def created_by():
     try:
         token = validateJWT()
         if token == 400:
-            return jsonify({'error': 'Token is missing in the request.'}), 401
+            return jsonify({'error': 'Token is missing in the request, please try again.'}), 401
         if token == 401:
-            return jsonify({'error': 'Invalid authentication token.'}), 403
+            return jsonify({'error': 'Invalid authentication token, please login again.'}), 403
 
         return fetch_created_task(token['id'])
 
     except ValueError:
-        return jsonify({'error': 'Error fetching task.'})
+        return jsonify({'error': 'Error upon fetching the tasks!'})
 
 
 @task.route("/v0/tasks/assignedto/", methods=["GET"])
@@ -54,13 +54,13 @@ def assigned_to():
     try:
         token = validateJWT()
         if token == 400:
-            return jsonify({'error': 'Token is missing in the request.'}), 401
+            return jsonify({'error': 'Token is missing in the request, please try again.'}), 401
         if token == 401:
-            return jsonify({'error': 'Invalid authentication token.'}), 403
+            return jsonify({'error': 'Invalid authentication token, please login again.'}), 403
 
         return fetch_assigned_task(token['id'])
     except ValueError:
-        return jsonify({'error': 'Error fetching task.'})
+        return jsonify({'error': 'Error upon fetching the tasks!'})
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["PATCH"])
@@ -68,24 +68,24 @@ def update(taskUid):
     try:
         token = validateJWT()
         if token == 400:
-            return jsonify({'error': 'Token is missing in the request.'}), 401
+            return jsonify({'error': 'Token is missing in the request, please try again.'}), 401
         if token == 401:
-            return jsonify({'error': 'Invalid authentication token.'}), 403
+            return jsonify({'error': 'Invalid authentication token, please login again.'}), 403
 
         data = json.loads(request.data)
         if 'done' not in data:
-            return jsonify({'error': 'Done is needed in the request.'}), 400
+            return jsonify({'error': '"Done" status not found in the request.'}), 400
         if is_valid(taskUid) is False:
-            return jsonify({'error': 'The task does not exits.'}), 400
+            return jsonify({'error': 'Task not found.'}), 400
 
         list_task = fetch_assigned_task(token['id'])
         task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0:
-            return jsonify({'error': 'This task is not assigned to you so you cannot update'}), 401
+            return jsonify({'error': 'The task status can only be changed by the user who the task is to.'}), 401
 
         return update_task(data, taskUid)
     except ValueError:
-        return jsonify({'error': 'Error updating task.'})
+        return jsonify({'error': 'Error upon updating task!'})
 
 
 @task.route("/v0/tasks/<taskUid>", methods=["DELETE"])
@@ -93,17 +93,17 @@ def delete_task(taskUid):
     try:
         token = validateJWT()
         if token == 400:
-            return jsonify({'error': 'Token is missing in the request.'}), 401
+            return jsonify({'error': 'Token is missing in the request, please try again.'}), 401
         if token == 401:
-            return jsonify({'error': 'Invalid authentication token.'}), 403
+            return jsonify({'error': 'Invalid authentication token, please login again.'}), 403
         if is_valid(taskUid) is False:
-            return jsonify({'error': 'The task does not exits.'}), 400
+            return jsonify({'error': 'Task not found.'}), 400
 
         list_task = fetch_created_task(token['id'])
         task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0:
-            return jsonify({'error': 'This task is not created by you so you cannot delete'}), 401
+            return jsonify({'error': 'The task can only be deleted by its creator.'}), 401
 
         return delete(taskUid)
     except ValueError:
-        return jsonify({'error': 'Error deleting task.'})
+        return jsonify({'error': 'Error upon updating task!'})

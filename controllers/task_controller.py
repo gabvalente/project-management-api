@@ -69,7 +69,7 @@ def fetch_assigned_task(Uid):
                 assigned_tasks.append(current_task)
         return assigned_tasks
     except Exception as err:
-        raise ValueError("Error when trying to fetch tasks: ", err)
+        raise ValueError("Error upon trying to fetch tasks: ", err)
 
 
 def checking_task_in_list(task_list, task_uid):
@@ -88,7 +88,7 @@ def update_task(user_information, uid):
             "$set": {"done": user_information["done"]}})
         return jsonify({'taskUid': uid})
     except Exception as err:
-        raise ValueError("Error when updating task: ", err)
+        raise ValueError("Error upon updating task: ", err)
 
 
 def delete(uid):
@@ -98,4 +98,4 @@ def delete(uid):
         collection.delete_one({"_id": task_to_delete["_id"]})
         return jsonify({'tasksAffected': 1}), 200
     except Exception as err:
-        raise ValueError("Error when deleting task: ", err)
+        raise ValueError("Error upon deleting task: ", err)
