@@ -19,7 +19,7 @@ user = Blueprint("user", __name__)  # for backwards compatibility, the framework
 def create():
     try:
         data = json.loads(request.data)  # the data will be sent from the mobile application -> the (object) will be created and pushed to the DB. the request can be accessed as a dict.
-        if validate_email('email') is False:
+        if validate_email(data['email']) is False:
             return jsonify({'error': 'Invalid e-mail address. Please enter a valid e-mail'}), 400
         if 'email' not in data:
             return jsonify({'error': 'Email is needed in the request.'}), 400
