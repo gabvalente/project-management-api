@@ -3,9 +3,9 @@
 
  ###### [GitHub](https://github.com/yulia-samoilovich/MyApp)
 
-| Version | Date        |  Description  |
-|---------|-------------|---------------|
-| 1.0     | 13-Nov-2022 | Initial draft |
+| Version | Date        | Description                                                |
+|---------|-------------|------------------------------------------------------------|
+| 1.0     | 13-Nov-2022 | Initial documentation of an API for a task management app. |
 
 <br>
 
