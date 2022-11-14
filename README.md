@@ -23,24 +23,14 @@
 ## Index
 <!-- TOC -->
 * [**1. Create task**](#create-task)
-* * [**Request**](#request-(create))
-* * [**Response**](#response-(create))
-* 
+
 * [**2. Display tasks by creator's ID**](#display-tasks-by-creator-id)
-* * [**Request**](#request-(display by UID))
-* * [**Response**](#response-(display by UID))
-* 
+
 * [**3. Display task by "assigned to ID"**](#display-task-by-assigned-to-id)
-* * [**Request**](#request-(display by assigned to ID))
-* * [**Response**](#response-(display by assigned to ID))
-* 
+
 * [**4. Update task**](#update-task)
-* * [**Request**](#request-(update))
-* * [**Response**](#response-(update))
-* 
+
 * [**5. Delete task**](#delete-task)
-* * [**Request**](#request-(delete))
-* * [**Response**](#response-(delete))
 <!-- TOC -->
 
 <br><br>
