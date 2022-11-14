@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="edit update and delete function as discussed with Renan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/task_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/task_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/task_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/task_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +81,7 @@
       <workItem from="1668247764876" duration="119000" />
       <workItem from="1668254038879" duration="1507000" />
       <workItem from="1668265506169" duration="8663000" />
-      <workItem from="1668390673141" duration="2674000" />
+      <workItem from="1668390673141" duration="2744000" />
     </task>
     <task id="LOCAL-00001" summary="edit check_task_list function">
       <created>1668254635756</created>
@@ -106,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668340448835</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="edit update and delete function as discussed with Renan">
+      <created>1668393385061</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668393385061</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
