@@ -39,7 +39,6 @@
 Creates a new task with a task description and user id (assigned to). The request receives a token for authentication.
 
 #### Request (create)
-
 | Method | URL                                       |
 |--------|-------------------------------------------|
 | POST   | http://127.0.0.1:5000/v0/tasks/createTask |
@@ -48,7 +47,6 @@ Parameters:
 `{"description": "Some task!", "assignedToUid" : "636c72ba129ed3958fd0b74d"}`
 
 #### Response (create)
-
 | Status     | Response                                                        |
 |------------|-----------------------------------------------------------------|
 | 200 OK     | `{"uid": "637267cd1d4a686e713f70c6"}`                           |
@@ -73,7 +71,6 @@ Parameters:
 `{"Uid": "6370194a928fc3c914553e30"}`
 
 #### Response (display by UID)
-
 | Status     | Response                                                                                                                                                                                                                 |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 200 OK     | `{"assignedToName": "test", "assignedToUid": "636c72ba129ed3958fd0b74d", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "A task!", "done": false, "uid": "637267cd1d4a686e713f70c6"}` |
@@ -95,7 +92,6 @@ Returns a list of tasks assigned to the user that is making the request. The use
 No parameters
 
 #### Response (display by assigned to ID)
-
 | Status     | Response                                                                                                                                                                                                                  |
 |------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 200 OK     | `{"assignedToName": "me", "assignedToUid": "6370194a928fc3c914553e30", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "Some task!", "done": false, "uid": "6372a0793f0ad26ff2bc8034"}` |
@@ -117,7 +113,6 @@ Parameters:
 `{"done": true/false}`
 
 #### Response (update)
-
 | Status     | Response                                                                                     |
 |------------|----------------------------------------------------------------------------------------------|
 | 200 OK     | `{"taskUid": "6372a2a13f0ad26ff2bc8036"}`                                                    |
@@ -141,7 +136,6 @@ Deletes a task from the database. The delete request is restricted to the user w
 No parameters
 
 #### Response (delete)
-
 | Status     | Response                                                          |
 |------------|-------------------------------------------------------------------|
 | 200 OK     | `{"tasksAffected": 1}`                                            |
