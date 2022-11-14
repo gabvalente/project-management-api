@@ -51,7 +51,7 @@ Parameters:
 
 | Status     | Response                                                        |
 |------------|-----------------------------------------------------------------|
-| 200 OK     | "uid": "637267cd1d4a686e713f70c6"                               |
+| 200 OK     | `{"uid": "637267cd1d4a686e713f70c6"}`                           |
 | 400        | {'error': 'Token is missing in the request, please try again.'} |
 | 401        | {'error': 'Invalid authentication token, please login again.'}  |
 | 400        | {'error': 'Description is needed in the request.'}              |
@@ -96,12 +96,12 @@ No parameters
 
 #### Response (display by assigned to ID)
 
-| Status     | Response                                                                                                                                                                                                                   |
-|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200 OK     | { `"assignedToName": "me", "assignedToUid": "6370194a928fc3c914553e30", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "Some task!", "done": false, "uid": "6372a0793f0ad26ff2bc8034"}` |
-| 400        | {'error': 'Token is missing in the request, please try again.'}                                                                                                                                                            |
-| 401        | {'error': 'Invalid authentication token, please login again.'}                                                                                                                                                             |
-| ValueError | {'error': 'Error upon fetching the tasks!'}                                                                                                                                                                                |
+| Status     | Response                                                                                                                                                                                                                  |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200 OK     | `{"assignedToName": "me", "assignedToUid": "6370194a928fc3c914553e30", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "Some task!", "done": false, "uid": "6372a0793f0ad26ff2bc8034"}` |
+| 400        | {'error': 'Token is missing in the request, please try again.'}                                                                                                                                                           |
+| 401        | {'error': 'Invalid authentication token, please login again.'}                                                                                                                                                            |
+| ValueError | {'error': 'Error upon fetching the tasks!'}                                                                                                                                                                               |
 
 <br>
 
