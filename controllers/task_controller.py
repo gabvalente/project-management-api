@@ -54,7 +54,7 @@ def fetch_created_task(uid):
 def fetch_assigned_task(Uid):
     try:
         collection = database.dataBase[config.CONST_TASK_COLLECTION]
-        created_tasks = []
+        assigned_tasks = []
 
         for task in collection.find():
             if str(task['assignedToUid']) == str(Uid):
@@ -66,8 +66,8 @@ def fetch_assigned_task(Uid):
                 current_task.update({'assignedToUid': task['assignedToUid']})
                 current_task.update({'assignedToName': task['assignedToName']})
                 current_task.update({'done': task['done']})
-                created_tasks.append(current_task)
-        return created_tasks
+                assigned_tasks.append(current_task)
+        return assigned_tasks
     except Exception as err:
         raise ValueError("Error when trying to fetch tasks: ", err)
 
@@ -77,8 +77,7 @@ def checking_task_in_list(task_list, task_uid):
     for task in task_list:
         if str(task['uid']) == str(task_uid):
             count = count + 1
-    if count == 0:
-        return 0
+    return count
 
 
 def update_task(user_information, uid):

@@ -71,6 +71,7 @@ def update(taskUid):
             return jsonify({'error': 'Token is missing in the request.'}), 401
         if token == 401:
             return jsonify({'error': 'Invalid authentication token.'}), 403
+
         data = json.loads(request.data)
         if 'done' not in data:
             return jsonify({'error': 'Done is needed in the request.'}), 400
