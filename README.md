@@ -23,24 +23,24 @@
 ## Index
 <!-- TOC -->
 * [**1. Create task**](#create-task)
-* * [**Request**](#request)
-* * [**Response**](#response)
+* * [**Request**](#request-(create))
+* * [**Response**](#response-(create))
 * 
 * [**2. Display tasks by creator's ID**](#display-tasks-by-creator-id)
-* * [**Request**](#request)
-* * [**Response**](#response)
+* * [**Request**](#request-(display by UID))
+* * [**Response**](#response-(display by UID))
 * 
-* [**3. Display task by assigned ID**](#display-task-by-assigned-id)
-* * [**Request**](#request)
-* * [**Response**](#response)
+* [**3. Display task by "assigned to ID"**](#display-task-by-assigned-to-id)
+* * [**Request**](#request-(display by assigned to ID))
+* * [**Response**](#response-(display by assigned to ID))
 * 
 * [**4. Update task**](#update-task)
-* * [**Request**](#request)
-* * [**Response**](#response)
+* * [**Request**](#request-(update))
+* * [**Response**](#response-(update))
 * 
 * [**5. Delete task**](#delete-task)
-* * [**Request**](#request)
-* * [**Response**](#response)
+* * [**Request**](#request-(delete))
+* * [**Response**](#response-(delete))
 <!-- TOC -->
 
 <br><br>
@@ -48,115 +48,113 @@
 ### Create task
 Creates a new task with a task description and user id (assigned to). The request receives a token for authentication.
 
-#### Request
+#### Request (create)
 
 | Method | URL                                       |
 |--------|-------------------------------------------|
 | POST   | http://127.0.0.1:5000/v0/tasks/createTask |
 
-Body:
-`{
-    "description": "Some task!",
-    "assignedToUid" : "636c72ba129ed3958fd0b74d"
-}`
+Parameters:
+`{"description": "Some task!", "assignedToUid" : "636c72ba129ed3958fd0b74d"}`
 
-#### Response
+#### Response (create)
 
-| Status     | Response                                                    |
-|------------|-------------------------------------------------------------|
-| 200 OK     | "uid": "637267cd1d4a686e713f70c6"                           |
-| 400        | {'error': 'Token is missing in the request.'}               |
-| 401        | {'error': 'Invalid authentication token.'}                  |
-| 400        | {'error': 'Description is needed in the request.'}          |
-| 400        | {'error': 'Assigned user is needed in the request.'}        |
-| 400        | {'error': 'The user who was assigned the task is invalid.'} |
-| ValueError | {'error': 'Error creating task.'}                           |
+| Status     | Response                                                        |
+|------------|-----------------------------------------------------------------|
+| 200 OK     | "uid": "637267cd1d4a686e713f70c6"                               |
+| 400        | {'error': 'Token is missing in the request, please try again.'} |
+| 401        | {'error': 'Invalid authentication token, please login again.'}  |
+| 400        | {'error': 'Description is needed in the request.'}              |
+| 400        | {'error': 'Assigned user is needed in the request.'}            |
+| 400        | {'error': 'Task assigned to an invalid user, please try again.} |
+| ValueError | {'error': 'Error upon creating the task!'}                      |
 
 <br>
 
 ### Display tasks by creator ID
-Returns a list of tasks created based on the creator's ID. A valid token needs to be in the request.
+Returns a list of all tasks based on the creator's ID. A valid token is necessary in the request.
 
-#### Request
+#### Request (display by UID)
 | Method | URL                                       |
 |--------|-------------------------------------------|
 | GET    | http://127.0.0.1:5000/v0/tasks/createdby/ |
 
-Body:
-`{
-    "Uid": "6370194a928fc3c914553e30"
-}`
+Parameters:
+`{"Uid": "6370194a928fc3c914553e30"}`
 
-#### Response
+#### Response (display by UID)
 
-| Status     | Response                                                                                                                                                                                                                    |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 200 OK     | `{"assignedToName": "test", "assignedToUid": "636c72ba129ed3958fd0b74d", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "Some task!", "done": false, "uid": "637267cd1d4a686e713f70c6"}` |
-| 400        | {'error': 'Token is missing in the request.'}                                                                                                                                                                               |
-| 401        | {'error': 'Invalid authentication token.'}                                                                                                                                                                                  |
-| ValueError | {'error': 'Error fetching task.'}                                                                                                                                                                                           |
+| Status     | Response                                                                                                                                                                                                                 |
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200 OK     | `{"assignedToName": "test", "assignedToUid": "636c72ba129ed3958fd0b74d", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "A task!", "done": false, "uid": "637267cd1d4a686e713f70c6"}` |
+| 400        | {'error': 'Token is missing in the request, please try again.'}                                                                                                                                                          |
+| 401        | {'error': 'Invalid authentication token, please login again.'}                                                                                                                                                           |
+| ValueError | {'error': 'Error upon fetching the tasks!'}                                                                                                                                                                              |
 
 <br>
 
-### Display task by assigned ID
+### Display task by "assigned to ID"
 Returns a list of tasks assigned to the user that is making the request. The user must be logged in and using a valid token.
 
-Body:
-`{
-    "Uid": "6370194a928fc3c914553e30"
-}`
 
-#### Request
+#### Request (display by assigned to ID)
 | Method | URL                                        |
 |--------|--------------------------------------------|
 | GET    | http://127.0.0.1:5000/v0/tasks/assignedto/ |
 
-#### Response
+No parameters
 
-| Status     | Response                                      |
-|------------|-----------------------------------------------|
-| 200 OK     | "uid": "637267cd1d4a686e713f70c6"             |
-| 400        | {'error': 'Token is missing in the request.'} |
-| 401        | {'error': 'Invalid authentication token.'}    |
-| ValueError | {'error': 'Error fetching task.'}             |
+#### Response (display by assigned to ID)
+
+| Status     | Response                                                                                                                                                                                                                   |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200 OK     | { `"assignedToName": "me", "assignedToUid": "6370194a928fc3c914553e30", "createdByName": "me", "createdByUid": "6370194a928fc3c914553e30", "description": "Some task!", "done": false, "uid": "6372a0793f0ad26ff2bc8034"}` |
+| 400        | {'error': 'Token is missing in the request, please try again.'}                                                                                                                                                            |
+| 401        | {'error': 'Invalid authentication token, please login again.'}                                                                                                                                                             |
+| ValueError | {'error': 'Error upon fetching the tasks!'}                                                                                                                                                                                |
 
 <br>
 
 ### Update task
 Updates task completion status. The update request is restricted to the user who's the task is assigned to. A valid token needs to be in the request.
 
-#### Request
+#### Request (update)
 | Method | URL                                      |
 |--------|------------------------------------------|
 | PATCH  | http://127.0.0.1:5000/v0/tasks/<taskUid> |
 
-#### Response
+Parameters:
+`{"done": true/false}`
 
-| Status     | Response                                                           |
-|------------|--------------------------------------------------------------------|
-| 200 OK     |                                                                    |
-| 400        | {'error': 'Token is missing in the request.'}                      |
-| 401        | {'error': 'Invalid authentication token.'}                         |
-| 400        | {'error': 'Done is needed in the request.'}                        |
-| 400        | {'error': 'The task does not exits.'}                              |
-| 400        | {'error': 'This task is not assigned to you so you cannot update'} |
-| ValueError | {'error': 'Error updating task.'}                                  |
+#### Response (update)
+
+| Status     | Response                                                                                     |
+|------------|----------------------------------------------------------------------------------------------|
+| 200 OK     | `{"taskUid": "6372a2a13f0ad26ff2bc8036"}`                                                    |
+| 400        | {'error': 'Token is missing in the request, please try again.'}                              |
+| 401        | {'error': 'Invalid authentication token, please login again.'}                               |
+| 400        | {'error': '"Done" status not found in the request.'}                                         |
+| 400        | {'error': 'Task not found.'}                                                                 |
+| 400        | {'error': 'The task status can only be changed by the user to who the task is assigned to.'} |
+| ValueError | {'error': 'Error upon updating task!'}                                                       |
 
 <br>
 
 ### Delete task
 Deletes a task from the database. The delete request is restricted to the user who created the task. A valid token needs to be in the request.
 
-#### Request
+#### Request (delete)
 | Method | URL                                      |
 |--------|------------------------------------------|
 | DELETE | http://127.0.0.1:5000/v0/tasks/<taskUid> |
 
-#### Response
+No parameters
+
+#### Response (delete)
 
 | Status     | Response                                                          |
 |------------|-------------------------------------------------------------------|
-| 200 OK     | "uid": "637267cd1d4a686e713f70c6"                                 |
+| 200 OK     | `{"tasksAffected": 1}`                                            |
 | 400        | {'error': 'Token is missing in the request.'}                     |
 | 401        | {'error': 'Invalid authentication token.'}                        |
 | 400        | {'error': 'The task does not exits.'}                             |

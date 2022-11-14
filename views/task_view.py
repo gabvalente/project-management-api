@@ -81,7 +81,7 @@ def update(taskUid):
         list_task = fetch_assigned_task(token['id'])
         task_check = checking_task_in_list(list_task, taskUid)
         if task_check == 0:
-            return jsonify({'error': 'The task status can only be changed by the user who the task is to.'}), 401
+            return jsonify({'error': 'The task status can only be changed by the user to who the task is assigned to.'}), 401
 
         return update_task(data, taskUid)
     except ValueError:
