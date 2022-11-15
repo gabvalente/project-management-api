@@ -79,4 +79,4 @@ def fetch():
 
         return fetchUsers()
     except ValueError:
-        return jsonify({'error': 'Error on fetching users, try again.'})
+        return jsonify({'error': 'Error upon fetching users, please try again.'})

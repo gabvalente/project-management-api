@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="Updated documentation. Updated error messages.">
+    <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="Updated documentation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/user_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,17 +32,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Maria Adelaida/OneDrive/Documents/GitHub/MyApp",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Maria Adelaida/OneDrive/Documents/GitHub/MyApp&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MyApp" type="PythonConfigurationType" factoryName="Python">
       <module name="MyApp" />
@@ -87,7 +88,8 @@
       <workItem from="1668254038879" duration="1507000" />
       <workItem from="1668265506169" duration="8663000" />
       <workItem from="1668390673141" duration="2744000" />
-      <workItem from="1668450923803" duration="6816000" />
+      <workItem from="1668450923803" duration="8391000" />
+      <workItem from="1668480360245" duration="2873000" />
     </task>
     <task id="LOCAL-00001" summary="edit check_task_list function">
       <created>1668254635756</created>
@@ -145,7 +147,42 @@
       <option name="project" value="LOCAL" />
       <updated>1668458236722</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updated documentation.">
+      <created>1668458467944</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1668458467944</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated documentation.">
+      <created>1668458628090</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668458628090</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Updated .idea">
+      <created>1668458654847</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668458654847</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Updated documentation.">
+      <created>1668458838605</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1668458838605</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated documentation.">
+      <created>1668458912990</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668458912990</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,9 +207,11 @@
     <MESSAGE value="Updated error messages." />
     <MESSAGE value=".idea updates" />
     <MESSAGE value="Updated documentation. Updated error messages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated documentation. Updated error messages." />
+    <MESSAGE value="Updated .idea" />
+    <MESSAGE value="Updated documentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated documentation." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MyApp$MyApp.coverage" NAME="MyApp Coverage Results" MODIFIED="1668458091599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/MyApp$MyApp.coverage" NAME="MyApp Coverage Results" MODIFIED="1668480506901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
