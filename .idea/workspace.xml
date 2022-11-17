@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="Updated documentation.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/user_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/user_view.py" afterDir="false" />
-    </list>
+    <list default="true" id="ec0c7798-9c98-4671-a046-b3c81bb8f8e5" name="Changes" comment="Updated documentation." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +19,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2HC6Ft3WMtQZlaYiI9zNEZyesBa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -89,7 +88,7 @@
       <workItem from="1668265506169" duration="8663000" />
       <workItem from="1668390673141" duration="2744000" />
       <workItem from="1668450923803" duration="8391000" />
-      <workItem from="1668480360245" duration="2873000" />
+      <workItem from="1668480360245" duration="3136000" />
     </task>
     <task id="LOCAL-00001" summary="edit check_task_list function">
       <created>1668254635756</created>
@@ -182,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668458912990</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Updated documentation.">
+      <created>1668483268267</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1668483268267</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
