@@ -5,7 +5,7 @@
 
 | Version | Date        | Description                                                |
 |---------|-------------|------------------------------------------------------------|
-| 1.0     | 13-Nov-2022 | Initial documentation of an API for a task management app. |
+| 1.0     | 13-Nov-2022 | An API for a project management app. |
 
 <br>
 <br>
